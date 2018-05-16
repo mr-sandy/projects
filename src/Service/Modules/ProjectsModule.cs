@@ -10,7 +10,6 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Routing;
 
-
     public class ProjectsModule : CarterModule
     {
         private readonly IProjectsService projectsService;
@@ -23,14 +22,7 @@
             this.Get("/projects/{id:int}", this.GetProject);
             this.Post("/projects", this.PostProject);
 
-            this.Get("/projects/signin-oidc-client", this.GetApp);
-
             this.RequiresAuthentication();
-        }
-
-        private async Task GetApp(HttpRequest req, HttpResponse res, RouteData routeData)
-        {
-            await res.Negotiate(null);
         }
 
         private async Task GetProjects(HttpRequest req, HttpResponse res, RouteData routeData)

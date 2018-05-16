@@ -6,6 +6,7 @@
     using Linn.Common.Authentication.Host;
     using Linn.Common.Authentication.Host.Extensions;
     using Linn.Projects.Ioc;
+    using Linn.Projects.Service.Host.Negotiators;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
+            services.AddTransient<IViewLoader, ViewLoader>();
             services.AddFacade();
             services.AddPersistence();
             services.AddHandlers();

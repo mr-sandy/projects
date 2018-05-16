@@ -9,9 +9,11 @@
     <None Remove="config.env.example" />
     <None Remove="Service.Host.v3.ncrunchproject" />
     <None Remove="Views\Index.html" />
+    <None Remove="Views\SilentRenew.html" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Views\SilentRenew.html" />
     <Content Include="Views\Index.html" />
   </ItemGroup>
 
