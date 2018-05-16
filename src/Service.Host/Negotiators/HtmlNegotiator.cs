@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using Carter;
     using HandlebarsDotNet;
+    using Linn.Common.Configuration;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Net.Http.Headers;
     using Newtonsoft.Json;
@@ -29,14 +30,13 @@
 
         public async Task Handle(HttpRequest req, HttpResponse res, object model, CancellationToken cancellationToken)
         {
-            var resource = new
-            {
-                Auth = "https://www.linn.co.uk/auth/"
-            };
-
             var data = new
             {
-                json = JsonConvert.SerializeObject(resource)
+                settings = JsonConvert.SerializeObject(new
+                {
+                    AuthorityUrl = ConfigurationManager.Configuration["AUTHORITY_URL"],
+                    AppRoot = ConfigurationManager.Configuration["APP_ROOT"]
+                })
             };
 
             res.ContentType = "text/html";

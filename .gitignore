@@ -67,3 +67,6 @@ prod-update.sh
 
 src/Service.Host/client/build/
 package-lock.json
+
+# config
+*.env

@@ -1,9 +1,6 @@
 ﻿import * as actionTypes from './';
 import { postJson } from '../helpers/json';
-
-const config = {
-    appRoot: 'http://localhost:63544'
-}
+import config from '../config' ;
 
 export const receiveProject = project => ({
     type: actionTypes.RECEIVE_PROJECT,
