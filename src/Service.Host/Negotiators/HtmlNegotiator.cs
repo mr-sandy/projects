@@ -8,19 +8,19 @@
     using Carter;
     using HandlebarsDotNet;
     using Linn.Common.Configuration;
+    using Linn.Projects.Service.Models;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Net.Http.Headers;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
 
     public class HtmlNegotiator : IResponseNegotiator
     {
-        private readonly Func<object, string> template;
+        private readonly IViewLoader viewLoader;
 
-        public HtmlNegotiator()
+        public HtmlNegotiator(IViewLoader viewLoader)
         {
-            var source = File.ReadAllText("./Views/Index.html");
-
-            this.template = Handlebars.Compile(source);
+            this.viewLoader = viewLoader;
         }
 
         public bool CanHandle(MediaTypeHeaderValue accept)
@@ -30,18 +30,29 @@
 
         public async Task Handle(HttpRequest req, HttpResponse res, object model, CancellationToken cancellationToken)
         {
-            var data = new
+            var viewName = model is ViewResponse viewResponse
+                ? viewResponse.ViewName
+                : "Index.html";
+
+            var view = this.viewLoader.Load(viewName);
+
+            var template = Handlebars.Compile(view);
+
+            var viewModel = new
             {
-                settings = JsonConvert.SerializeObject(new
-                {
-                    AuthorityUrl = ConfigurationManager.Configuration["AUTHORITY_URL"],
-                    AppRoot = ConfigurationManager.Configuration["APP_ROOT"]
-                })
+                Settings = JsonConvert.SerializeObject(new
+                    {
+                        AuthorityUrl = ConfigurationManager.Configuration["AUTHORITY_URL"],
+                        AppRoot = ConfigurationManager.Configuration["APP_ROOT"]
+                    },
+                    Formatting.Indented,
+                    new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()})
             };
 
             res.ContentType = "text/html";
-            res.StatusCode = (int) HttpStatusCode.OK;
-            await res.WriteAsync(this.template(data), cancellationToken);
+            res.StatusCode = (int)HttpStatusCode.OK;
+
+            await res.WriteAsync(template(viewModel), cancellationToken);
         }
     }
 }

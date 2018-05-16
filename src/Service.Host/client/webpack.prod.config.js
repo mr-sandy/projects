@@ -6,13 +6,16 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: 'production',
-    entry: [
-        'babel-polyfill',
-        './src/index.js' // the entry point of our app
-    ],
+    entry: {
+        app: [
+            'babel-polyfill',
+            './src/index.js' // the entry point of our app
+        ],
+        'silent-renew': './silent-renew/index.js'
+    },
     output: {
         path: path.join(__dirname, 'build'),
-        filename: 'app.js',
+        filename: '[name].js',
         publicPath: '/projects/build/'
     },
     module: {
