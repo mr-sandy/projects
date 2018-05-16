@@ -1,0 +1,7 @@
+﻿
+export const VIEW_EARLIER_DASHBOARD = 'VIEW_EARLIER_DASHBOARD';
+export const VIEW_LATER_DASHBOARD = 'VIEW_LATER_DASHBOARD';
+export const ZOOM_IN = 'ZOOM_IN';
+export const ZOOM_OUT = 'ZOOM_OUT';
+
+export const RECEIVE_PROJECT = 'RECEIVE_PROJECT';
