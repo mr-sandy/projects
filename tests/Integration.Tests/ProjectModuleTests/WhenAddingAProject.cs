@@ -2,7 +2,6 @@
 {
     using FluentAssertions;
     using Integration.Tests.Extensions;
-    using Linn.Common.Facade;
     using Linn.Projects.Domain;
     using Linn.Projects.Facade.Resources;
     using NSubstitute;
@@ -13,14 +12,11 @@
         [SetUp]
         public void SetUp()
         {
-            this.ProjectsService.AddProject(Arg.Any<ProjectResource>()).Returns(new CreatedResult<Project>(
-                new Project
-                {
-                    Id = 1,
-                    Name = "New Project"
-                }
-            ));
-
+            this.ProjectRepository.When(a => a.Add(Arg.Any<Project>())).Do(callInfo =>
+            {
+                var project = (Project)callInfo.Args()[0];
+                project.Id = 1;
+            });
 
             var payload = new
             {
@@ -60,6 +56,8 @@
             resources.Should().NotBeNull();
 
             resources.Name.Should().Be("New Project");
+            resources.Activities.Should().HaveCount(1);
+            resources.Activities[0].EmployeeUrl.Should().Be("/employees/1");
         }
     }
 }

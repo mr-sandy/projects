@@ -2,7 +2,6 @@
 {
     using FluentAssertions;
     using Integration.Tests.Extensions;
-    using Linn.Common.Facade;
     using Linn.Projects.Domain;
     using NSubstitute;
     using NUnit.Framework;
@@ -12,7 +11,7 @@
         [SetUp]
         public void SetUp()
         {
-            this.ProjectsService.GetProject(1).Returns(new NotFoundResult<Project>());
+            this.ProjectRepository.Get(1).Returns((Project)null);
 
             this.Response = this.Client.Get("/projects/1", with =>
             {

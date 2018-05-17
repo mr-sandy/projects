@@ -1,6 +1,6 @@
 ﻿namespace Linn.Projects.Facade.Resources
 {
-    using System.Linq;
+    using System;
     using Linn.Common.Resources;
 
     public class ProjectResource : HypermediaResource
@@ -9,6 +9,8 @@
 
         public string Name { get; set; }
 
-        public PhaseResource[] Phases { get; set; } = Enumerable.Empty<PhaseResource>().ToArray();
+        public PhaseResource[] Phases { get; set; } = Array.Empty<PhaseResource>();
+
+        public ProjectActivityResource[] Activities { get; set; } = Array.Empty<ProjectActivityResource>();
     }
 }

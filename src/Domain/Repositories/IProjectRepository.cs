@@ -6,6 +6,8 @@
     {
         IEnumerable<Project> GetAll();
 
+        Project Get(int id);
+
         void Add(Project project);
     }
 }

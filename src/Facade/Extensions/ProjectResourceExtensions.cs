@@ -1,13 +1,13 @@
 ﻿namespace Linn.Projects.Facade.Extensions
 {
-    using Linn.Projects.Domain;
+    using Linn.Projects.Domain.Activities;
     using Linn.Projects.Facade.Resources;
 
     public static class ProjectResourceExtensions
     {
-        public static Project ToDomain(this ProjectResource resource)
+        public static CreateProjectActivity ToCreateActivity(this ProjectResource resource, string employeeUrl)
         {
-            return new Project
+            return new CreateProjectActivity(employeeUrl)
             {
                 Name = resource.Name
             };

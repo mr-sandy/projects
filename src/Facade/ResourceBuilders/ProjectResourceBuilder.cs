@@ -5,6 +5,7 @@
     using Linn.Common.Facade;
     using Linn.Common.Resources;
     using Linn.Projects.Domain;
+    using Linn.Projects.Domain.Activities;
     using Linn.Projects.Facade.Resources;
 
     public class ProjectResourceBuilder : IResourceBuilder<Project>
@@ -17,6 +18,7 @@
                 {
                     Id = project.Id,
                     Name = project.Name,
+                    Activities = this.BuildActivities(project).ToArray(),
                     Links = this.BuildLinks(project).ToArray()
                 };
         }
@@ -24,6 +26,22 @@
         public string GetLocation(Project project)
         {
             return $"/projects/{project.Id}";
+        }
+
+        private IEnumerable<ProjectActivityResource> BuildActivities(Project project)
+        {
+            foreach (var activity in project.Activities)
+            {
+                switch (activity)
+                {
+                    case CreateProjectActivity createProjectActivity:
+                        yield return new ProjectActivityResource
+                        {
+                            EmployeeUrl = createProjectActivity.EmployeeUrl
+                        };
+                        break;
+                }
+            }
         }
 
         private IEnumerable<LinkResource> BuildLinks(Project project)

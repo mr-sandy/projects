@@ -7,6 +7,7 @@
     using Carter.Response;
     using Linn.Projects.Facade;
     using Linn.Projects.Facade.Resources;
+    using Linn.Projects.Service.Extensions;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Routing;
 
@@ -22,7 +23,7 @@
             this.Get("/projects/{id:int}", this.GetProject);
             this.Post("/projects", this.PostProject);
 
-            this.RequiresAuthentication();
+            this.RequiresEmployeeClaim();
         }
 
         private async Task GetProjects(HttpRequest req, HttpResponse res, RouteData routeData)
@@ -44,8 +45,9 @@
         private async Task PostProject(HttpRequest req, HttpResponse res, RouteData routeData)
         {
             var resource = req.Bind<ProjectResource>();
+            var employeeUrl = req.HttpContext.User.GetEmployeeUrl();
 
-            var result = this.projectsService.AddProject(resource);
+            var result = this.projectsService.AddProject(resource, employeeUrl);
 
             await res.Negotiate(result);
         }

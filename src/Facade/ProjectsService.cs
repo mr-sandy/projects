@@ -18,7 +18,14 @@
 
         public IResult<Project> GetProject(int projectId)
         {
-            throw new System.NotImplementedException();
+            var project = this.projectRepository.Get(projectId);
+
+            if (project == null)
+            {
+                return new NotFoundResult<Project>();
+            }
+
+            return new SuccessResult<Project>(project);
         }
 
         public IResult<IEnumerable<Project>> GetProjects()
@@ -28,9 +35,11 @@
             return new SuccessResult<IEnumerable<Project>>(projects);
         }
 
-        public IResult<Project> AddProject(ProjectResource resource)
+        public IResult<Project> AddProject(ProjectResource resource, string employeeUrl)
         {
-            var project = resource.ToDomain();
+            var createActivity = resource.ToCreateActivity(employeeUrl);
+
+            var project = new Project(createActivity);
 
             this.projectRepository.Add(project);
 

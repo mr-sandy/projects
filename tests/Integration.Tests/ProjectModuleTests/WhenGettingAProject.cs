@@ -4,6 +4,7 @@
     using Integration.Tests.Extensions;
     using Linn.Common.Facade;
     using Linn.Projects.Domain;
+    using Linn.Projects.Domain.Activities;
     using Linn.Projects.Facade.Resources;
     using NSubstitute;
     using NUnit.Framework;
@@ -13,11 +14,12 @@
         [SetUp]
         public void SetUp()
         {
-            this.ProjectsService.GetProject(1).Returns(new SuccessResult<Project>(
-                new Project
-                {
-                    Name = "Project 1"
-                }));
+            var project = new Project(new CreateProjectActivity("/employees/1")
+            {
+                Name = "Project 1"
+            });
+
+            this.ProjectRepository.Get(1).Returns(project);
 
             this.Response = this.Client.Get("/projects/1", with =>
             {

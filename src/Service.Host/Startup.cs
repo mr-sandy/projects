@@ -5,6 +5,7 @@
     using Carter;
     using Linn.Common.Authentication.Host;
     using Linn.Common.Authentication.Host.Extensions;
+    using Linn.Common.Configuration;
     using Linn.Projects.Ioc;
     using Linn.Projects.Service.Host.Negotiators;
     using Microsoft.AspNetCore.Builder;
@@ -27,7 +28,7 @@
 
             services.AddLinnAuthentication(options =>
             {
-                options.Authority = "https://www-sys.linn.co.uk/auth";
+                options.Authority = ConfigurationManager.Configuration["AUTHORITY_URL"];
                 options.CallbackPath = "/projects/signin-oidc";
             });
 

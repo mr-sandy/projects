@@ -4,8 +4,8 @@
     using System.Linq;
     using FluentAssertions;
     using Integration.Tests.Extensions;
-    using Linn.Common.Facade;
     using Linn.Projects.Domain;
+    using Linn.Projects.Domain.Activities;
     using Linn.Projects.Facade.Resources;
     using NSubstitute;
     using NUnit.Framework;
@@ -15,17 +15,17 @@
         [SetUp]
         public void SetUp()
         {
-            this.ProjectsService.GetProjects().Returns(new SuccessResult<IEnumerable<Project>>(new[]
+            this.ProjectRepository.GetAll().Returns(new[]
             {
-                new Project
+                new Project(new CreateProjectActivity("/employees/1")
                 {
                     Name = "Project 1"
-                },
-                new Project
+                }),
+                new Project(new CreateProjectActivity("/employees/1")
                 {
                     Name = "Project 2"
-                }
-            }));
+                })
+            });
 
             this.Response = this.Client.Get("/projects", with =>
             {

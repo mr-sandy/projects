@@ -1,13 +1,9 @@
 ﻿namespace Integration.Tests
 {
     using System;
-    using System.Globalization;
     using System.Net.Http;
-    using System.Net.NetworkInformation;
-    using System.Security.Claims;
     using System.Threading.Tasks;
     using Carter;
-    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -16,31 +12,29 @@
 
     public static class TestClient
     {
-        public static HttpClient With(Action<IServiceCollection> configuration)
+        public static HttpClient With(Action<IServiceCollection> serviceConfiguration, params Func<RequestDelegate, RequestDelegate>[] middlewares)
         {
             var server = new TestServer(
                 new WebHostBuilder()
                     .ConfigureServices(
                         services =>
                         {
-                            services.Apply(configuration);
+                            services.Apply(serviceConfiguration);
                             services.AddCarter();
                         })
                     .Configure(app =>
                     {
-                        app.Use(FakeUserMiddleware);
+                        if (middlewares != null)
+                        {
+                            foreach (var middleware in middlewares)
+                            {
+                                app.Use(middleware);
+                            }
+                        }
                         app.UseCarter();
                     }));
 
             return server.CreateClient();
         }
-
-        private static RequestDelegate FakeUserMiddleware(RequestDelegate next) => ctx =>
-        {
-            var identity = new ClaimsIdentity(new[] { new Claim("sid", "12345") }, CookieAuthenticationDefaults.AuthenticationScheme);
-            ctx.User = new ClaimsPrincipal(identity);
-
-            return next(ctx);
-        };
     }
 }

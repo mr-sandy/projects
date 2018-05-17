@@ -1,6 +1,7 @@
 ﻿namespace Integration.Tests.ProjectModuleTests
 {
     using System.Net.Http;
+    using Linn.Projects.Domain.Repositories;
     using Linn.Projects.Facade;
     using Linn.Projects.Ioc;
     using Microsoft.Extensions.DependencyInjection;
@@ -12,18 +13,21 @@
 
         protected HttpResponseMessage Response { get; set; }
 
-        protected IProjectsService ProjectsService { get; set; }
+        protected IProjectRepository ProjectRepository { get; set; }
 
         [SetUp]
         public void EstablishContext()
         {
-            this.ProjectsService = NSubstitute.Substitute.For<IProjectsService>();
+            this.ProjectRepository = NSubstitute.Substitute.For<IProjectRepository>();
 
             this.Client = TestClient.With(services =>
-            {
-                services.AddSingleton(this.ProjectsService);
-                services.AddHandlers();
-            });
+                {
+                    services.AddSingleton(this.ProjectRepository);
+                    services.AddFacade();
+                    services.AddHandlers();
+                },
+                FakeAuthMiddleware.EmployeeMiddleware
+            );
         }
     }
 }

@@ -11,6 +11,6 @@
 
         IResult<IEnumerable<Project>> GetProjects();
 
-        IResult<Project> AddProject(ProjectResource resource);
+        IResult<Project> AddProject(ProjectResource resource, string employeeUrl);
     }
 }
