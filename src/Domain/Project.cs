@@ -7,6 +7,11 @@
     {
         private readonly List<ProjectActivity> activities = new List<ProjectActivity>();
 
+        // For EF
+        private Project()
+        {
+        }
+
         public Project(CreateProjectActivity activity)
         {
             this.Name = activity.Name;

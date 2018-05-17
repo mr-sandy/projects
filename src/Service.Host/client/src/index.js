@@ -79,7 +79,7 @@ const initialState = {
     ]
 };
 
-const store = configureStore(initialState || undefined);
+const store = configureStore({} || undefined);
 const user = store.getState().oidc.user;
 
 const render = Component => {

@@ -9,10 +9,12 @@
 
     public class ProjectsService : IProjectsService
     {
+        private readonly ITransactionManager transactionManager;
         private readonly IProjectRepository projectRepository;
 
-        public ProjectsService(IProjectRepository projectRepository)
+        public ProjectsService(ITransactionManager transactionManager, IProjectRepository projectRepository)
         {
+            this.transactionManager = transactionManager;
             this.projectRepository = projectRepository;
         }
 
@@ -42,6 +44,8 @@
             var project = new Project(createActivity);
 
             this.projectRepository.Add(project);
+
+            this.transactionManager.Commit();
 
             return new CreatedResult<Project>(project);
         }

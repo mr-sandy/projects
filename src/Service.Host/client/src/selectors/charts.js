@@ -38,6 +38,10 @@ const getProjectData = (project, dateRange, months) => ({
 export const getProjectChart = (state, projectId) => {
     const project = getProject(state, projectId);
 
+    if (project === null) {
+        return null;
+    }
+
     const dateRange = getProjectDateRange(project);
     const { startDate, noOfMonths } = dateRange;
 

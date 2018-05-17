@@ -6,7 +6,11 @@ import moment from 'moment';
 
 class Project extends React.Component {
     render() {
-        const { project, chartData } = this.props;
+        const { project = null, chartData } = this.props;
+
+        if (project == null) {
+            return false;
+        }
 
         return (
             <Grid fluid={false}>

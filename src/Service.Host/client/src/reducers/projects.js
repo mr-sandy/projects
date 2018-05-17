@@ -2,6 +2,11 @@
 
 const projects = (prevState = [], action) => {
     switch (action.type) {
+
+        case actionTypes.RECEIVE_PROJECTS:
+            return action.payload;
+
+        case actionTypes.PROJECT_CREATED:
         case actionTypes.RECEIVE_PROJECT:
             {
                 const index = prevState.findIndex(p => p.id === action.payload.id);

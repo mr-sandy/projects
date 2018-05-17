@@ -8,6 +8,7 @@
     using Linn.Projects.Facade;
     using Linn.Projects.Facade.ResourceBuilders;
     using Linn.Projects.Persistence;
+    using Linn.Projects.Persistence.Repositories;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ServiceCollectionExtensions
@@ -23,7 +24,10 @@
 
         public static IServiceCollection AddPersistence(this IServiceCollection services)
         {
-            return services.AddTransient<IProjectRepository, ProjectRepository>();
+            return services
+                .AddScoped<ServiceDbContext>()
+                .AddTransient<ITransactionManager, TransactionManager>()
+                .AddTransient<IProjectRepository, ProjectRepository>();
         }
 
         public static IServiceCollection AddFacade(this IServiceCollection services)
