@@ -2,7 +2,6 @@
 {
     using System.Net.Http;
     using Linn.Projects.Domain.Repositories;
-    using Linn.Projects.Facade;
     using Linn.Projects.Ioc;
     using Microsoft.Extensions.DependencyInjection;
     using NUnit.Framework;

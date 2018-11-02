@@ -1,4 +1,4 @@
-import { getMonths, getRelativeStart, getRelativeEnd } from '../../utilities/date';
+import { getMonths, getRelativeDate, getRelativeStart, getRelativeEnd } from '../../utilities/date';
 
 describe('when getting months', () => {
 

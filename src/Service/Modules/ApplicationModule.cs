@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using Carter;
     using Carter.Response;
+    using Linn.Projects.Service.Extensions;
     using Linn.Projects.Service.Models;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Routing;
@@ -13,6 +14,8 @@
         {
             this.Get("/projects/signin-oidc-client", this.GetApp);
             this.Get("/projects/signin-oidc-silent", this.GetSilentRenew);
+
+            this.RequiresEmployeeClaim();
         }
 
         private async Task GetApp(HttpRequest req, HttpResponse res, RouteData routeData)

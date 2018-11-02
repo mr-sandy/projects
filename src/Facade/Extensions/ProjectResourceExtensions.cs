@@ -5,12 +5,14 @@
 
     public static class ProjectResourceExtensions
     {
-        public static CreateProjectActivity ToCreateActivity(this ProjectResource resource, string employeeUrl)
+        public static CreateActivity ToCreateActivity(this ProjectResource resource, int? phases, string employeeUrl)
         {
-            return new CreateProjectActivity(employeeUrl)
-            {
-                Name = resource.Name
-            };
+            return new CreateActivity(employeeUrl, resource.Name, resource.StartDate, phases ?? 5);
+        }
+
+        public static UpdateActivity ToUpdateActivity(this ProjectResource resource, string employeeUrl)
+        {
+            return new UpdateActivity(employeeUrl, resource.Name, resource.StartDate);
         }
     }
 }

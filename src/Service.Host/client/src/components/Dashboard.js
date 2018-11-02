@@ -2,10 +2,15 @@
 import { Grid, Row, Col, Button, Glyphicon } from 'react-bootstrap';
 import { Chart, ChartDetail, ChartMessage } from './Chart';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Loading } from './common/Loading';
 
 class Dashboard extends React.Component {
     render() {
-        const { chartData, viewEarlierDashboard, viewLaterDashboard, zoomIn, zoomOut } = this.props;
+        const { loading, chartData, viewEarlierDashboard, viewLaterDashboard, zoomIn, zoomOut, canEdit } = this.props;
+
+        if (loading) {
+            return <Loading />;
+        }
 
         return (
             <Grid fluid={false}>
@@ -22,13 +27,13 @@ class Dashboard extends React.Component {
                         </div>
                         <Chart months={chartData.months} onPrev={() => viewEarlierDashboard()} onNext={() => viewLaterDashboard()}>
                             {chartData.projects.length > 0
-                                ? chartData.projects.map(project => <ChartDetail key={project.name} months={chartData.months} project={project} columns={chartData.months.length} />)
+                                ? chartData.projects.map(project => <ChartDetail key={project.id} months={chartData.months} project={project} columns={chartData.months.length} />)
                                 : <ChartMessage columns={chartData.months.length} message="No projects at this time" />
                             }
                         </Chart>
-                        <LinkContainer style={{ marginTop: '40px' }} to={'/projects/new'}>
-                            <Button bsStyle="success">Add Project &nbsp;&nbsp;<Glyphicon glyph="plus" /></Button>
-                        </LinkContainer >
+                        {canEdit && <LinkContainer style={{ marginTop: '40px' }} to={'/projects/new'}>
+                            <Button bsStyle="success" className="muted"><Glyphicon glyph="plus" />{'  Add Project'}</Button>
+                        </LinkContainer >}
                     </Col>
                 </Row>
             </Grid>

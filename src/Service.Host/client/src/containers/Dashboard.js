@@ -1,16 +1,20 @@
 ﻿import { connect } from 'react-redux';
 import initialiseOnMount from './common/initialiseOnMount';
 import Dashboard from '../components/Dashboard';
+import { getProjectsLoading } from '../selectors/projects';
 import { getSummaryChart } from '../selectors/charts';
+import { getUserCanEdit } from '../selectors/user';
 import { viewEarlierDashboard, viewLaterDashboard, zoomIn, zoomOut } from '../actions/application';
-import { fetchProjects } from '../actions/project';
+import { fetchProjectsIfRequired } from '../actions/project';
 
 const mapStateToProps = state => ({
-    chartData: getSummaryChart(state)
+    loading: getProjectsLoading(state),
+    chartData: getSummaryChart(state),
+    canEdit: getUserCanEdit(state)
 });
 
 const initialise = () => dispatch => {
-    dispatch(fetchProjects());
+    dispatch(fetchProjectsIfRequired());
 };
 
 const mapDispatchToProps = {

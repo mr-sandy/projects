@@ -1,8 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-//import { history } from 'react-router';
 import { Breadcrumb } from 'react-bootstrap';
-//import { toTitleCase } from '../helpers/strings';
 
 const toTitleCase = str => {
     return str.replace('-', ' ').replace(/([^\W_]+[^\s-]*) */g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());

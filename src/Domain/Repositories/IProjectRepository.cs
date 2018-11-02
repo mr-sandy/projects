@@ -9,5 +9,7 @@
         Project Get(int id);
 
         void Add(Project project);
+
+        void Remove(Project project);
     }
 }

@@ -1,8 +1,12 @@
-﻿
-export const getProject = (state, id) => {
+﻿export const getProjectsLoading = state => {
     const { projects } = state;
-    
-    return id
-        ? projects.find(p => p.id === parseInt(id)) || null
-        : null;
+
+    return projects.loading;
 }
+
+export const getProjectsLoaded = state => {
+    const { projects } = state;
+
+    return projects.loaded;
+}
+

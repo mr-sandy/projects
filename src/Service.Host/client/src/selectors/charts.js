@@ -1,38 +1,42 @@
-﻿import { getProject } from './projects';
-import { getMonths, getRelativeStart, getRelativeEnd } from './utilities/date';
+﻿import { getProject } from './project';
+import { getMonths, getRelativeStart, getRelativeEnd, getNextDay } from './utilities/date';
 import { getProjectDateRange, projectFilter, projectComparison } from './utilities/projects';
 
 const getProjectData = (project, dateRange, months) => ({
     ...project,
-    phases: project.phases.map(
-        phase => {
-            const overallStart = getRelativeStart(phase.startDate, dateRange);
-            const overallEnd = getRelativeEnd(phase.endDate, dateRange);
+    phases: project.phases.reduce((sofar, phase) => {
+        const overallStart = getRelativeStart(sofar.startDate, dateRange);
+        const overallEnd = getRelativeEnd(phase.endDate, dateRange);
 
-            return {
-                phase: phase.phase,
-                status: phase.status,
-                startDate: phase.startDate,
-                endDate: phase.endDate,
-                timeline: {
-                    overall: {
-                        start: overallStart === overallEnd ? null : overallStart,
-                        end: overallStart === overallEnd ? null : overallEnd
-                    },
-                    monthly: months.map(month => {
-                        const monthStart = getRelativeStart(phase.startDate, month);
-                        const monthEnd = getRelativeEnd(phase.endDate, month);
+        const data = {
+            phaseNumber: phase.phaseNumber,
+            status: phase.status,
+            startDate: sofar.startDate,
+            endDate: phase.endDate,
+            timeline: {
+                overall: {
+                    start: overallStart === overallEnd ? null : overallStart,
+                    end: overallStart === overallEnd ? null : overallEnd
+                },
+                monthly: months.map(month => {
+                    const monthStart = getRelativeStart(sofar.startDate, month);
+                    const monthEnd = getRelativeEnd(phase.endDate, month);
 
-                        return {
-                            month: month.month,
-                            year: month.year,
-                            start: monthStart === monthEnd ? null : monthStart,
-                            end: monthStart === monthEnd ? null : monthEnd
-                        };
-                    })
-                }
+                    return {
+                        month: month.month,
+                        year: month.year,
+                        start: monthStart === monthEnd ? null : monthStart,
+                        end: monthStart === monthEnd ? null : monthEnd
+                    };
+                })
             }
-        })
+        };
+
+        return {
+            result: [...sofar.result, data],
+            startDate: getNextDay(phase.endDate)
+        }
+    }, { result: [], startDate: project.startDate }).result
 });
 
 export const getProjectChart = (state, projectId) => {
@@ -75,6 +79,7 @@ export const getSummaryChart = state => {
             daysInMonth: month.daysInMonth
         })),
         projects: projects
+            .items
             .filter(projectFilter(dateRange))
             .sort(projectComparison)
             .map(project => getProjectData(project, dateRange, months))

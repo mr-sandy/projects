@@ -27,25 +27,42 @@
             builder.RemovePluralizingTableNameConvention();
 
             this.BuildProject(builder);
-            this.BuildProjectActivity(builder);
+            this.BuildPhase(builder);
+
+            this.BuildActivity(builder);
 
             base.OnModelCreating(builder);
         }
 
         private void BuildProject(ModelBuilder builder)
         {
-            builder.Entity<Project>().HasKey(d => d.Id);
-            builder.Entity<Project>().HasMany(d => d.Activities).WithOne().OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Project>().Property(d => d.Name).IsRequired();
+            builder.Entity<Project>().HasKey(p => p.Id);
+            builder.Entity<Project>().Property(p => p.Name).IsRequired();
+            builder.Entity<Project>().HasMany(p => p.Phases).WithOne(p => p.Project).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Project>().HasMany(p => p.Activities).WithOne().OnDelete(DeleteBehavior.Cascade);
         }
 
-        private void BuildProjectActivity(ModelBuilder builder)
+        private void BuildPhase(ModelBuilder builder)
         {
-            builder.Entity<ProjectActivity>().HasKey(h => h.Id);
-            builder.Entity<ProjectActivity>().HasDiscriminator<string>("ActivityType")
-                .HasValue<CreateProjectActivity>("create-project");
+            builder.Entity<Phase>().HasKey(p => p.Id);
+            builder.Entity<Phase>().Property(p => p.PhaseNumber).IsRequired();
+        }
 
-            builder.Entity<CreateProjectActivity>().HasBaseType<ProjectActivity>();
+        private void BuildActivity(ModelBuilder builder)
+        {
+            builder.Entity<Activity>().HasKey(h => h.Id);
+            builder.Entity<Activity>().HasDiscriminator<string>("ActivityType")
+                .HasValue<CreateActivity>("create-project")
+                .HasValue<UpdateActivity>("update-project")
+                .HasValue<AddPhaseActivity>("add-phase")
+                .HasValue<UpdatePhaseActivity>("update-phase")
+                .HasValue<RemovePhaseActivity>("remove-phase");
+
+            builder.Entity<CreateActivity>().HasBaseType<Activity>();
+            builder.Entity<UpdateActivity>().HasBaseType<Activity>();
+            builder.Entity<AddPhaseActivity>().HasBaseType<Activity>();
+            builder.Entity<UpdatePhaseActivity>().HasBaseType<Activity>();
+            builder.Entity<RemovePhaseActivity>().HasBaseType<Activity>();
         }
     }
 }

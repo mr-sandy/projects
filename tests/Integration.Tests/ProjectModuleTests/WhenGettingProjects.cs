@@ -1,5 +1,6 @@
 ﻿namespace Integration.Tests.ProjectModuleTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using FluentAssertions;
@@ -17,14 +18,8 @@
         {
             this.ProjectRepository.GetAll().Returns(new[]
             {
-                new Project(new CreateProjectActivity("/employees/1")
-                {
-                    Name = "Project 1"
-                }),
-                new Project(new CreateProjectActivity("/employees/1")
-                {
-                    Name = "Project 2"
-                })
+                new Project(new CreateActivity("/employees/1", "Project 1", new DateTime(2018, 7, 31), 0)),
+                new Project(new CreateActivity("/employees/1", "Project 2", new DateTime(2018, 7, 31), 0))
             });
 
             this.Response = this.Client.Get("/projects", with =>

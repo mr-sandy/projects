@@ -1,14 +1,13 @@
 ﻿namespace Linn.Projects.Facade.Resources
 {
     using System;
+    using Linn.Common.Resources;
 
-    public class PhaseResource
+    public class PhaseResource : HypermediaResource
     {
-        public int Phase { get; set; }
+        public int PhaseNumber { get; set; }
 
         public string Status { get; set; }
-
-        public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
     }

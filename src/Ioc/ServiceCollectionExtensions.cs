@@ -4,6 +4,7 @@
     using Linn.Common.Facade.Carter;
     using Linn.Common.Facade.Carter.Handlers;
     using Linn.Projects.Domain;
+    using Linn.Projects.Domain.Activities;
     using Linn.Projects.Domain.Repositories;
     using Linn.Projects.Facade;
     using Linn.Projects.Facade.ResourceBuilders;
@@ -16,9 +17,13 @@
         public static IServiceCollection AddHandlers(this IServiceCollection services)
         {
             return services
+                .AddTransient<PhaseResourceBuilder>()
                 .AddTransient<ProjectResourceBuilder>()
                 .AddTransient<ProjectsResourceBuilder>()
+                .AddTransient<ActivitiesResourceBuilder>()
+                .AddTransient<IHandler, JsonResultHandler<Phase, PhaseResourceBuilder>>()
                 .AddTransient<IHandler, JsonResultHandler<Project, ProjectResourceBuilder>>()
+                .AddTransient<IHandler, JsonResultHandler<IEnumerable<Activity>, ActivitiesResourceBuilder>>()
                 .AddTransient<IHandler, JsonResultHandler<IEnumerable<Project>, ProjectsResourceBuilder>>();
         }
 

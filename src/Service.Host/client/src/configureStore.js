@@ -1,6 +1,6 @@
 ﻿import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { authorisation, fetchError, navigation } from './middleware';
+import { authorisation, navigation, refreshProject, loadEmployees } from './middleware';
 import { apiMiddleware as api } from 'redux-api-middleware';
 import reducer from './reducers';
 
@@ -8,11 +8,12 @@ const composeEnhancers =
     window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
 
 const middleware = [
-    thunkMiddleware,
     authorisation,
     api,
     navigation,
-    fetchError
+    refreshProject,
+    loadEmployees,
+    thunkMiddleware
 ];
 
 

@@ -1,9 +1,11 @@
 ﻿namespace Integration.Tests.ProjectModuleTests
 {
+    using System;
     using FluentAssertions;
     using Integration.Tests.Extensions;
     using Linn.Projects.Domain;
     using Linn.Projects.Facade.Resources;
+    using Linn.Projects.Facade.Resources.Activities;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -20,7 +22,8 @@
 
             var payload = new
             {
-                name = "New Project"
+                name = "New Project",
+                startDate = "2018-07-18T00:00:00.000Z"
             };
 
             this.Response = this.Client.Post("/projects", payload, with =>
@@ -56,8 +59,7 @@
             resources.Should().NotBeNull();
 
             resources.Name.Should().Be("New Project");
-            resources.Activities.Should().HaveCount(1);
-            resources.Activities[0].EmployeeUrl.Should().Be("/employees/1");
+            resources.StartDate.Should().Be(new DateTime(2018, 7, 18));
         }
     }
 }

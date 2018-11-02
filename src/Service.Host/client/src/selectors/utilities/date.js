@@ -36,6 +36,21 @@ export const getMonths = (startDate, noOfMonths) => {
         }));
 };
 
+const pad = number => {
+    return number < 10
+        ? `0${number}`
+        : `${number}`;
+}
+
+export const getNextDay = dateStr => {
+    var date = moment(dateStr).add(1, 'days').toDate();
+    var day = pad(date.getDate());
+    var month = pad(date.getMonth() + 1);
+    var year = date.getFullYear();
+
+    return `${year}-${month}-${day}`;
+}
+
 export const getRelativeStart = (date, { startDate, endDate }) => {
     const mDate = moment(date).startOf('day');
     const mStartDate = moment(startDate).startOf('day');

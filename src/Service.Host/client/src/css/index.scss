@@ -13,3 +13,103 @@
 .control-label-left {
     text-align: left !important;
 }
+
+// date picker fixes - font sizes
+.react-datepicker {
+    font-size: 1.3rem !important;
+}
+
+.react-datepicker__current-month {
+    font-size: 1.5rem !important;
+}
+
+.react-datepicker__header {
+    padding-top: 6px !important;
+}
+
+.react-datepicker__navigation {
+    top: 13px !important;
+}
+
+.react-datepicker__day-name, .react-datepicker__day {
+    margin: 0.5rem !important;
+}
+
+
+// date picker custom styles
+/*.react-datepicker-wrapper,
+.react-datepicker-wrapper .react-datepicker__input-container,
+.react-datepicker-wrapper .react-datepicker__input-container input {
+    width: 100%;
+}*/
+
+.react-datepicker__input-container input {
+    display: block;
+    /*width: 100%;*/
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.react-datepicker__input-container input:focus {
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+// Bootstrap customisations
+$brand-primary: darken(#428bca, 6.5%); // #337ab7
+$brand-success: #5cb85c;
+$brand-info: #5bc0de;
+$brand-warning: #f0ad4e;
+$brand-danger: #d9534f;
+
+@mixin button-variant($colour) {
+    color: $colour;
+    background-color: #fff;
+    border-color: lighten($colour, 15%);
+
+    &:focus,
+    &.focus {
+        color: #333;
+        background-color: lighten($colour, 40%);
+    }
+
+    &:hover {
+        color: darken($colour, 12%);
+        background-color: lighten($colour, 35%);
+    }
+
+    &:disabled {
+        color: lighten($colour, 12%);
+    }
+}
+
+.btn.btn-primary.muted {
+    @include button-variant($brand-primary);
+}
+
+.btn.btn-success.muted {
+    @include button-variant($brand-success);
+}
+
+.btn.btn-info.muted {
+    @include button-variant($brand-info);
+}
+
+.btn.btn-warning.muted {
+    @include button-variant($brand-warning);
+}
+
+.btn.btn-danger.muted {
+    @include button-variant($brand-danger);
+}
+

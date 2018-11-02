@@ -1,7 +1,5 @@
 ﻿namespace Linn.Projects.Service.Host.Negotiators
 {
-    using System;
-    using System.IO;
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
@@ -40,13 +38,14 @@
 
             var viewModel = new
             {
-                Settings = JsonConvert.SerializeObject(new
+                Settings = JsonConvert.SerializeObject(
+                    new
                     {
                         AuthorityUrl = ConfigurationManager.Configuration["AUTHORITY_URL"],
                         AppRoot = ConfigurationManager.Configuration["APP_ROOT"]
                     },
                     Formatting.Indented,
-                    new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()})
+                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() })
             };
 
             res.ContentType = "text/html";

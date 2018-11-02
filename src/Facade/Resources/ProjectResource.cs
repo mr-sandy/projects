@@ -9,8 +9,8 @@
 
         public string Name { get; set; }
 
+        public DateTime StartDate { get; set; }
+        
         public PhaseResource[] Phases { get; set; } = Array.Empty<PhaseResource>();
-
-        public ProjectActivityResource[] Activities { get; set; } = Array.Empty<ProjectActivityResource>();
     }
 }

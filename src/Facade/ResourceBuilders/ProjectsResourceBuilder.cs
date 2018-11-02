@@ -5,6 +5,7 @@
     using System.Linq;
     using Linn.Common.Facade;
     using Linn.Projects.Domain;
+    using Linn.Projects.Facade.Resources;
 
     public class ProjectsResourceBuilder : IResourceBuilder<IEnumerable<Project>>
     {
@@ -15,7 +16,7 @@
             this.projectResourceBuilder = projectResourceBuilder;
         }
 
-        public object Build(IEnumerable<Project> projects)
+        public IEnumerable<ProjectResource> Build(IEnumerable<Project> projects)
         {
             return projects?.Select(this.projectResourceBuilder.Build);
         }
@@ -24,5 +25,7 @@
         {
             throw new NotImplementedException();
         }
+
+        object IResourceBuilder<IEnumerable<Project>>.Build(IEnumerable<Project> model) => this.Build(model);
     }
 }

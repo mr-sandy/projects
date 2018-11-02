@@ -19,7 +19,7 @@
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            services.AddTransient<IViewLoader, ViewLoader>();
+            services.AddSingleton<IViewLoader, ViewLoader>();
             services.AddFacade();
             services.AddPersistence();
             services.AddHandlers();
@@ -30,6 +30,7 @@
             {
                 options.Authority = ConfigurationManager.Configuration["AUTHORITY_URL"];
                 options.CallbackPath = "/projects/signin-oidc";
+                options.CookiePath = "/projects";
             });
 
             services.AddCarter();

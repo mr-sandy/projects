@@ -1,8 +1,8 @@
 ﻿namespace Integration.Tests.ProjectModuleTests
 {
+    using System;
     using FluentAssertions;
     using Integration.Tests.Extensions;
-    using Linn.Common.Facade;
     using Linn.Projects.Domain;
     using Linn.Projects.Domain.Activities;
     using Linn.Projects.Facade.Resources;
@@ -14,10 +14,7 @@
         [SetUp]
         public void SetUp()
         {
-            var project = new Project(new CreateProjectActivity("/employees/1")
-            {
-                Name = "Project 1"
-            });
+            var project = new Project(new CreateActivity("/employees/1", "Project 1", new DateTime(2018, 7, 31), 5));
 
             this.ProjectRepository.Get(1).Returns(project);
 

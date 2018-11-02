@@ -14,16 +14,17 @@
         {
             this.serviceDbContext = serviceDbContext;
         }
-
+    
         public IEnumerable<Project> GetAll()
         {
             return this.serviceDbContext.Projects
-                .Include(p => p.Activities);
+                .Include(p => p.Phases);
         }
 
         public Project Get(int id)
         {
             return this.serviceDbContext.Projects
+                .Include(p => p.Phases)
                 .Include(p => p.Activities)
                 .SingleOrDefault(t => t.Id == id);
         }
@@ -31,6 +32,11 @@
         public void Add(Project project)
         {
             this.serviceDbContext.Projects.Add(project);
+        }
+
+        public void Remove(Project project)
+        {
+            this.serviceDbContext.Projects.Remove(project);
         }
     }
 }

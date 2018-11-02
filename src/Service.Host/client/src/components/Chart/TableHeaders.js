@@ -6,14 +6,14 @@ const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
 
 const styles = {
     firstHeader: {
-        width: '120px',
+        width: '140px',
         textAlign: 'right',
         borderTop: '1px solid #ccc',
         borderBottom: '1px solid #ccc'
     },
     header: {
         textAlign: 'center',
-        padding: '10px 0',
+        padding: '10px 5px',
         fontWeight: 'normal',
         borderTop: '1px solid #ccc',
         borderBottom: '1px solid #ccc'

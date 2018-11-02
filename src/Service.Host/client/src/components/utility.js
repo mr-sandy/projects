@@ -30,3 +30,20 @@ export const statusColour = status => {
             return 'white';
     }
 };
+
+export const getStatusDisplayName = status => {
+    switch (status) {
+    case statuses.PLANNED:
+        return 'Planned';
+    case statuses.IN_PROGRESS:
+        return 'In Progress';
+    case statuses.COMPLETE:
+        return 'Complete';
+    case statuses.AT_RISK:
+        return 'At Risk';
+    case statuses.LATE:
+        return 'Late';
+    default:
+        return '';
+    }
+};

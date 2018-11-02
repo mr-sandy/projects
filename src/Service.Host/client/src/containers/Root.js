@@ -5,6 +5,7 @@ import { Router, Route, Redirect, Switch } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import Project from './Project';
 import NewProject from './NewProject';
+import ErrorMessage from './ErrorMessage';
 import Navigation from '../components/Navigation';
 import Callback from '../containers/Callback';
 import userManager from '../helpers/userManager';
@@ -20,6 +21,7 @@ class Root extends React.Component {
                     <Router history={history}>
                         <div>
                             <Navigation />
+                            <ErrorMessage />
 
                             <Route path="/" render={() => { document.title = 'Projects'; return false; }} />
                             <Route exact path="/" render={() => <Redirect to="/projects" />} />
