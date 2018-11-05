@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>Linn.Projects.Service.Host</RootNamespace>
+    <AWSProjectType>Lambda</AWSProjectType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="2.1.0" />
     <PackageReference Include="Carter" Version="3.8.0" />
     <PackageReference Include="Handlebars.Net" Version="1.9.5" />
     <PackageReference Include="Linn.Common.Authentication.Host" Version="1.0.2" />

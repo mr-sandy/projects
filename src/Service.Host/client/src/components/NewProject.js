@@ -2,7 +2,6 @@
 import { Grid, Row, Col, Button } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
 
 class NewProject extends React.Component {
     state = {

@@ -9,6 +9,7 @@
     using Linn.Projects.Facade;
     using Linn.Projects.Facade.ResourceBuilders;
     using Linn.Projects.Persistence;
+    using Linn.Projects.Persistence.InMemory;
     using Linn.Projects.Persistence.Repositories;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -30,9 +31,13 @@
         public static IServiceCollection AddPersistence(this IServiceCollection services)
         {
             return services
-                .AddScoped<ServiceDbContext>()
-                .AddTransient<ITransactionManager, TransactionManager>()
-                .AddTransient<IProjectRepository, ProjectRepository>();
+                .AddSingleton<ITransactionManager, InMemoryTransactionManager>()
+                .AddSingleton<IProjectRepository, InMemoryProjectRepository>();
+
+            //return services
+            //    .AddScoped<ServiceDbContext>()
+            //    .AddTransient<ITransactionManager, TransactionManager>()
+            //    .AddTransient<IProjectRepository, ProjectRepository>();
         }
 
         public static IServiceCollection AddFacade(this IServiceCollection services)

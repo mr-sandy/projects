@@ -5,6 +5,7 @@ import configureStore from './configureStore';
 import Root from './containers/Root';
 import userManager from './helpers/userManager';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../assets/kaboom/kaboom.css'
 import './css/index.scss';
 
