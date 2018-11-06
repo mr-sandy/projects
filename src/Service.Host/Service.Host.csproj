@@ -7,13 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="client\build\**" />
-    <Content Remove="client\build\**" />
-    <EmbeddedResource Remove="client\build\**" />
-    <None Remove="client\build\**" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Remove="client\build\app.js" />
     <None Remove="config.env.example" />
     <None Remove="Service.Host.v3.ncrunchproject" />
     <None Remove="Views\Index.html" />
@@ -21,8 +15,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Views\SilentRenew.html" />
-    <Content Include="Views\Index.html" />
+    <Content Include="client\build\app.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\SilentRenew.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Ioc\Ioc.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config.env">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

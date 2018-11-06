@@ -15,7 +15,7 @@
             this.Get("/projects/signin-oidc-client", this.GetApp);
             this.Get("/projects/signin-oidc-silent", this.GetSilentRenew);
 
-            this.RequiresEmployeeClaim();
+//            this.RequiresEmployeeClaim();
         }
 
         private async Task GetApp(HttpRequest req, HttpResponse res, RouteData routeData)
