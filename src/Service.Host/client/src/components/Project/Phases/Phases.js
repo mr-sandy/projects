@@ -2,8 +2,6 @@
 import { Table, Button, Glyphicon, Modal } from 'react-bootstrap';
 import PhaseEditor from './PhaseEditor';
 import PhaseDetails from './PhaseDetails';
-import Status from './Status';
-import moment from 'moment';
 import { statuses } from '../../../constants';
 import { sortPhases, getLastPhase, initNewPhase } from './utility';
 
@@ -43,7 +41,7 @@ class Phases extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {project.phases.sort(sortPhases).map((phase, i) =>
+                        {project.phases.sort(sortPhases).map(phase =>
                             editing && this.state.phaseNumber === phase.phaseNumber
                                 ? (
                                     <PhaseEditor
@@ -62,8 +60,7 @@ class Phases extends React.Component {
                                         onEdit={() => this.setState({ editing: true, phaseNumber: phase.phaseNumber })}
                                     />
                                 )
-                        )
-                        }
+                        )}
                         {adding && (
                             <PhaseEditor
                                 key="new-phase"
@@ -95,11 +92,13 @@ class Phases extends React.Component {
     }
 
     handleAdd(status, endDate) {
-        const { onAdd } = this.props;
+        const { addPhase, project } = this.props;
+
+        const phaseNumber = project.phases.length;
 
         this.setState({ adding: false });
 
-        onAdd(status, endDate);
+        addPhase(project.id, phaseNumber, status, endDate);
     }
 
     handleRemove(phaseNumber) {

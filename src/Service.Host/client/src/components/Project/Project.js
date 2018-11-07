@@ -20,22 +20,14 @@ class Project extends React.Component {
                 <Row>
                     <Col xs={12}>
                         <ProjectDetails {...this.props} />
-                        <ProjectTimeline  {...this.props} />
-                        <Phases {...this.props} onAdd={(status, endDate) => this.handleAddPhase(status, endDate)} />
+                        <ProjectTimeline {...this.props} />
+                        <Phases {...this.props} />
                         <Activities {...this.props} />
                         <DangerZone {...this.props} />
                     </Col>
                 </Row>
             </Grid>
         );
-    }
-
-    handleAddPhase(status, endDate) {
-        const { addPhase, project } = this.props;
-
-        const phaseNumber = project.phases.length;
-        
-        addPhase(project.id, phaseNumber, status, endDate);
     }
 }
 
