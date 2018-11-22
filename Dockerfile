@@ -2,6 +2,7 @@ FROM node:alpine AS build-js
 COPY ./src/Service.Host/client /repo/client-src
 WORKDIR /repo/client-src
 RUN npm install
+RUN npm rebuild node-sass
 RUN npm run build
 
 
