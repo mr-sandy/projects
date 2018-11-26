@@ -1,0 +1,71 @@
+Description: >-
+  Projects lambda
+Parameters: 
+  buildNumber:
+    Type: String
+    Description: Build number
+AWSTemplateFormatVersion: 2010-09-09
+Conditions: {}
+Resources:
+  ProjectsLambdaFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Code:
+        S3Bucket: linn-lambdas
+        S3Key: package.zip
+      VpcConfig:
+        SubnetIds:
+          - subnet-2a910872
+          - subnet-55dd8131
+          - subnet-c16730b7
+        SecurityGroupIds:
+          - sg-89178cef
+      Tags:
+        - Key: cit
+          Value: IT
+      MemorySize: 256
+      Environment:
+        Variables: 
+          buildNumber: !Ref buildNumber
+      Handler: 'Service.Host::Linn.Projects.Service.Host.LambdaEntryPoint::FunctionHandlerAsync'
+      Role: !GetAtt ProjectsLambdaRole.Arn
+      Timeout: 30
+      Runtime: dotnetcore2.1
+  ProjectsLambdaRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      Path: /
+      Policies:
+        - PolicyName: ProjectsLambdaRolePolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - 'ec2:CreateNetworkInterface'
+                  - 'ec2:AttachNetworkInterface'
+                  - 'ec2:DescribeNetworkInterfaces'
+                  - 'ec2:DeleteNetworkInterface'
+                Resource: '*'
+                Effect: Allow
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSLambdaFullAccess
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+Outputs:
+  ProjectsLambdaName:
+    Description: Projects lambda name
+    Value: !Ref ProjectsLambdaFunction
+    Export:
+      Name: ProjectsLambdaName
+  ProjectsLambdaArn:
+    Description: Projects lambda arn
+    Value: !GetAtt ProjectsLambdaFunction.Arn
+    Export:
+      Name: ProjectsLambdaArn
