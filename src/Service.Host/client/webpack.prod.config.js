@@ -69,9 +69,9 @@ module.exports = {
             filename: '[name].css',
             chunkFilename: '[id].css'
         }),
-        new UglifyJSPlugin({
-            sourceMap: true
-        }),
+        //new UglifyJSPlugin({
+        //    sourceMap: true
+        //}),
         new CopyWebpackPlugin([{ from: 'assets', to: 'assets' }]),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')

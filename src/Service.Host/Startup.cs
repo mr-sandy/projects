@@ -17,21 +17,21 @@
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            //JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            //services.AddSingleton<IViewLoader, ViewLoader>();
-            //services.AddFacade();
-            //services.AddPersistence();
-            //services.AddHandlers();
+            services.AddSingleton<IViewLoader, ViewLoader>();
+            services.AddFacade();
+            services.AddPersistence();
+            services.AddHandlers();
 
-            //services.AddCors();
+            services.AddCors();
 
-            //services.AddLinnAuthentication(options =>
-            //{
-            //    options.Authority = ConfigurationManager.Configuration["AUTHORITY_URL"];
-            //    options.CallbackPath = "/projects/signin-oidc";
-            //    options.CookiePath = "/projects";
-            //});
+            services.AddLinnAuthentication(options =>
+            {
+                options.Authority = ConfigurationManager.Configuration["AUTHORITY_URL"];
+                options.CallbackPath = "/projects/signin-oidc";
+                options.CookiePath = "/projects";
+            });
 
             services.AddCarter();
         }
@@ -43,17 +43,17 @@
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-            //app.UseStaticFiles(new StaticFileOptions
-            //{
-            //    RequestPath = "/projects/build",
-            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "client", "build"))
-            //});
-            
-            ////app.UseAuthentication();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                RequestPath = "/projects/build",
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "client", "build"))
+            });
 
-            //app.UseBearerTokenAuthentication();
+            //app.UseAuthentication();
+
+            app.UseBearerTokenAuthentication();
 
             app.UseCarter(new CarterOptions(null, ChallengeHelper.TriggerOidcChallengeOnUnauthorised));
         }

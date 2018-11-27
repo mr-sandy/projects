@@ -31,4 +31,4 @@ COPY --from=build /repo/src/Service.Host/package.zip /app/
 COPY ./deployment/aws/lambda.yaml /app/
 COPY ./deployment/deploy.sh /app/
 CMD aws s3 cp /app/package.zip s3://linn-lambdas/ && \
-    aws cloudformation deploy --stack-name projects-lambda --region eu-west-1 --template-file /app/lambda.yaml --capabilities=CAPABILITY_IAM --parameter-overrides buildNumber=1
+    aws cloudformation deploy --stack-name projects-lambda --region eu-west-1 --template-file /app/lambda.yaml --capabilities=CAPABILITY_IAM --parameter-overrides buildNumber=2

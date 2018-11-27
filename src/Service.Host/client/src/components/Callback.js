@@ -12,7 +12,12 @@ class Callback extends React.Component {
             <CallbackComponent
                 userManager={userManager}
                 successCallback={user => history.push(user.state.redirect)}
-                errorCallback={err => console.error(err)} >
+                errorCallback={err => {
+                    alert(err);
+                    console.log(err);
+                    console.error(err);
+                }
+} >
                 <Loading />
             </CallbackComponent>
         );
