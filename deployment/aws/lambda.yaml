@@ -12,7 +12,7 @@ Resources:
     Properties:
       Code:
         S3Bucket: linn-lambdas
-        S3Key: package.zip
+        S3Key: package-21.zip
       VpcConfig:
         SubnetIds:
           - subnet-2a910872

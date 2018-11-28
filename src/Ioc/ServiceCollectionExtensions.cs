@@ -30,14 +30,14 @@
 
         public static IServiceCollection AddPersistence(this IServiceCollection services)
         {
-            return services
-                .AddSingleton<ITransactionManager, InMemoryTransactionManager>()
-                .AddSingleton<IProjectRepository, InMemoryProjectRepository>();
-
             //return services
-            //    .AddScoped<ServiceDbContext>()
-            //    .AddTransient<ITransactionManager, TransactionManager>()
-            //    .AddTransient<IProjectRepository, ProjectRepository>();
+            //    .AddSingleton<ITransactionManager, InMemoryTransactionManager>()
+            //    .AddSingleton<IProjectRepository, InMemoryProjectRepository>();
+
+            return services
+                .AddScoped<ServiceDbContext>()
+                .AddTransient<ITransactionManager, TransactionManager>()
+                .AddTransient<IProjectRepository, ProjectRepository>();
         }
 
         public static IServiceCollection AddFacade(this IServiceCollection services)

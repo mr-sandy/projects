@@ -12,7 +12,7 @@ export const getUserCanEdit = state => {
         return false;
     }
 
-    const editors = ['sandyco'];
+    const editors = ['sandyco', 'alisont', 'emmas'];
     const username = state.oidc.user.profile.preferred_username;
 
     return editors.includes(username);

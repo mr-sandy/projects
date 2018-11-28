@@ -1,6 +1,7 @@
 ﻿import React from 'react';
-import { Grid, Row, Col, Button, Glyphicon } from 'react-bootstrap';
+import { Grid, Row, Col, Button } from 'react-bootstrap';
 import { range } from 'underscore';
+import { Left, Right } from '../common/svg';
 
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -35,7 +36,7 @@ export class TableHeaders extends React.Component {
                 {!staticMode && <th style={styles.firstHeader}>
                     {onPrev &&
                         <Button bsStyle="link" onClick={() => onPrev()}>
-                            <Glyphicon glyph="menu-left" />
+                            <Left colour="#337ab7" />
                         </Button>
                     }
                 </th>}
@@ -43,7 +44,7 @@ export class TableHeaders extends React.Component {
                 {!staticMode && onNext &&
                     <th style={styles.lastHeader}>
                         <Button bsStyle="link" onClick={() => onNext()}>
-                            <Glyphicon glyph="menu-right" />
+                            <Right colour="#337ab7" />
                         </Button>
                     </th>
                 }

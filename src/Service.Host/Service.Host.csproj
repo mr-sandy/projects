@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="client\build\app.js" />
+    <None Remove="client\build\**" />
     <None Remove="config.env.example" />
     <None Remove="Service.Host.v3.ncrunchproject" />
     <None Remove="Views\Index.html" />
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="client\build\app.js">
+    <Content Include="client\build\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\SilentRenew.html">
@@ -41,6 +41,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="config - Copy.env">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="config.env">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

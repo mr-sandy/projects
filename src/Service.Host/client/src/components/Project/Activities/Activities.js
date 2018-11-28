@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Button, ListGroup, ListGroupItem, Badge, Glyphicon } from 'react-bootstrap';
+import { Button, ListGroup, ListGroupItem, Badge } from 'react-bootstrap';
 import Activity from './Activity';
 import { sortActivitiesMostRecentFirst } from './utility';
 import moment from 'moment';

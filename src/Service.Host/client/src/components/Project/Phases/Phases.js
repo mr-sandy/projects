@@ -1,9 +1,10 @@
 ﻿import React from 'react';
-import { Table, Button, Glyphicon, Modal } from 'react-bootstrap';
+import { Table, Button, Modal } from 'react-bootstrap';
 import PhaseEditor from './PhaseEditor';
 import PhaseDetails from './PhaseDetails';
 import { statuses } from '../../../constants';
 import { sortPhases, getLastPhase, initNewPhase } from './utility';
+import { Plus } from '../../common/svg';
 
 const ConfirmRemovePhase = ({ show, phase, onConfirm, onCancel }) => (
     <Modal show={show}>
@@ -78,7 +79,7 @@ class Phases extends React.Component {
                         className="muted"
                         disabled={adding || editing}
                         onClick={() => this.setState({ adding: true })}>
-                        <Glyphicon glyph="plus" /> Add Phase
+                        <Plus /> Add Phase
                     </Button>}
 
                 {canEdit && lastPhase &&
