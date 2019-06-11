@@ -1,11 +1,10 @@
 ﻿import React from 'react';
-import { Table, Button, Glyphicon, Modal } from 'react-bootstrap';
+import { Table, Button, Modal } from 'react-bootstrap';
 import PhaseEditor from './PhaseEditor';
 import PhaseDetails from './PhaseDetails';
-import Status from './Status';
-import moment from 'moment';
 import { statuses } from '../../../constants';
 import { sortPhases, getLastPhase, initNewPhase } from './utility';
+import { Plus } from '../../common/svg';
 
 const ConfirmRemovePhase = ({ show, phase, onConfirm, onCancel }) => (
     <Modal show={show}>
@@ -43,7 +42,7 @@ class Phases extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {project.phases.sort(sortPhases).map((phase, i) =>
+                        {project.phases.sort(sortPhases).map(phase =>
                             editing && this.state.phaseNumber === phase.phaseNumber
                                 ? (
                                     <PhaseEditor
@@ -62,8 +61,7 @@ class Phases extends React.Component {
                                         onEdit={() => this.setState({ editing: true, phaseNumber: phase.phaseNumber })}
                                     />
                                 )
-                        )
-                        }
+                        )}
                         {adding && (
                             <PhaseEditor
                                 key="new-phase"
@@ -81,7 +79,7 @@ class Phases extends React.Component {
                         className="muted"
                         disabled={adding || editing}
                         onClick={() => this.setState({ adding: true })}>
-                        <Glyphicon glyph="plus" /> Add Phase
+                        <Plus /> Add Phase
                     </Button>}
 
                 {canEdit && lastPhase &&
@@ -95,11 +93,13 @@ class Phases extends React.Component {
     }
 
     handleAdd(status, endDate) {
-        const { onAdd } = this.props;
+        const { addPhase, project } = this.props;
+
+        const phaseNumber = project.phases.length;
 
         this.setState({ adding: false });
 
-        onAdd(status, endDate);
+        addPhase(project.id, phaseNumber, status, endDate);
     }
 
     handleRemove(phaseNumber) {

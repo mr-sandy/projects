@@ -1,7 +1,8 @@
 ﻿import React from 'react';
-import { Table, Button, Glyphicon } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import Status from './Status';
 import moment from 'moment';
+import { Cross } from '../../common/svg';
 
 const styles = {
     row: canEdit => ({
@@ -30,7 +31,7 @@ class PhaseDetails extends React.Component {
                 </td>
                 <td style={{ ...styles.cell, textAlign: 'right' }}>
                     {canRemove &&
-                        <Button bsStyle="danger" className="muted" bsSize="xsmall" onClick={e => this.handleRemoveClick(e)}><Glyphicon glyph="remove" /></Button>
+                        <Button bsStyle="danger" className="muted" bsSize="xsmall" onClick={e => this.handleRemoveClick(e)}><Cross /></Button>
                     }
                 </td>
             </tr>

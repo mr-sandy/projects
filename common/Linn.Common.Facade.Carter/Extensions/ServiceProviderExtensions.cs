@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-    using Linn.Common.Facade.Carter;
+    using Linn.Common.Facade.Carter.Handlers;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ServiceProviderExtensions

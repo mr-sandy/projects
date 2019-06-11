@@ -17,8 +17,6 @@
 
         public ProjectsModule(IProjectsService projectsService)
         {
-            this.RequiresEmployeeClaim();
-
             this.projectsService = projectsService;
 
             this.Get("/projects", this.GetProjects);
@@ -50,6 +48,8 @@
 
         private async Task PutProject(HttpRequest req, HttpResponse res, RouteData routeData)
         {
+            this.RequiresEmployeeClaim();
+
             var projectId = routeData.As<int>("id");
             var resource = req.Bind<ProjectResource>();
             var employeeUrl = req.HttpContext.User.GetEmployeeUrl();
@@ -61,6 +61,8 @@
 
         private async Task DeleteProject(HttpRequest req, HttpResponse res, RouteData routeData)
         {
+            this.RequiresEmployeeClaim();
+
             var projectId = routeData.As<int>("id");
 
             var result = this.projectsService.DeleteProject(projectId);
@@ -79,6 +81,8 @@
 
         private async Task PostProject(HttpRequest req, HttpResponse res, RouteData routeData)
         {
+            this.RequiresEmployeeClaim();
+
             var resource = req.Bind<ProjectResource>();
             var phases = req.Query.LookupAsInt("phases");
             var employeeUrl = req.HttpContext.User.GetEmployeeUrl();
@@ -90,6 +94,8 @@
 
         private async Task PostPhase(HttpRequest req, HttpResponse res, RouteData routeData)
         {
+            this.RequiresEmployeeClaim();
+
             var projectId = routeData.As<int>("id");
             var resource = req.Bind<PhaseResource>();
             var employeeUrl = req.HttpContext.User.GetEmployeeUrl();
@@ -101,6 +107,8 @@
 
         private async Task PutPhase(HttpRequest req, HttpResponse res, RouteData routeData)
         {
+            this.RequiresEmployeeClaim();
+
             var projectId = routeData.As<int>("id");
             var phaseNumber = routeData.As<int>("phaseNumber");
             var resource = req.Bind<PhaseResource>();
@@ -113,6 +121,8 @@
 
         private async Task DeletePhase(HttpRequest req, HttpResponse res, RouteData routeData)
         {
+            this.RequiresEmployeeClaim();
+
             var projectId = routeData.As<int>("id");
             var phaseNumber = routeData.As<int>("phaseNumber");
             var employeeUrl = req.HttpContext.User.GetEmployeeUrl();

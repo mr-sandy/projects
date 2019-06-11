@@ -42,7 +42,8 @@
                     new
                     {
                         AuthorityUrl = ConfigurationManager.Configuration["AUTHORITY_URL"],
-                        AppRoot = ConfigurationManager.Configuration["APP_ROOT"]
+                        AppRoot = ConfigurationManager.Configuration["APP_ROOT"],
+                        ProxyRoot = ConfigurationManager.Configuration["PROXY_ROOT"],
                     },
                     Formatting.Indented,
                     new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() })

@@ -12,10 +12,17 @@
     {
         public ApplicationModule()
         {
+            this.Get("/", this.Redirect);
             this.Get("/projects/signin-oidc-client", this.GetApp);
             this.Get("/projects/signin-oidc-silent", this.GetSilentRenew);
 
-            this.RequiresEmployeeClaim();
+            //            this.RequiresEmployeeClaim();
+        }
+
+        private Task Redirect(HttpRequest req, HttpResponse res, RouteData routeData)
+        {
+            res.Redirect("/projects");
+            return Task.CompletedTask;
         }
 
         private async Task GetApp(HttpRequest req, HttpResponse res, RouteData routeData)

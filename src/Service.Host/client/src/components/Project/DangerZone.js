@@ -1,5 +1,6 @@
 ﻿import React from 'react';
-import { Button, Modal, Glyphicon, Panel } from 'react-bootstrap';
+import { Button, Modal, Panel } from 'react-bootstrap';
+import { Trash } from '../common/svg';
 
 class DangerZone extends React.Component {
     state = {
@@ -19,7 +20,7 @@ class DangerZone extends React.Component {
                             bsStyle="danger"
                             className="muted"
                             onClick={() => this.handleDeleteClick()}>
-                            <Glyphicon glyph="trash" /> Delete Project
+                            <Trash /> Delete Project
                         </Button>
                     </Panel.Body>
                 </Panel>

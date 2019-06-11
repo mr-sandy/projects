@@ -8,10 +8,10 @@
   <ItemGroup>
     <PackageReference Include="Carter" Version="3.8.0" />
     <PackageReference Include="Linn.Common.Facade" Version="2.0.0" />
-    <PackageReference Include="Linn.Common.Facade.Carter" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\common\Linn.Common.Facade.Carter\Linn.Common.Facade.Carter.csproj" />
     <ProjectReference Include="..\Facade\Facade.csproj" />
   </ItemGroup>
 

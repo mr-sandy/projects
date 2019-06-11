@@ -1,0 +1,10 @@
+
+{
+    "region" : "eu-west-1",
+    "profile" : "dev",
+    "configuration" : "Release",
+    "framework"     : "netcoreapp2.1",
+    "s3-bucket"     : "linn-dev-lambdas",
+    "template"      : "serverless.template",
+    "stack-name"    : "projects-debug"
+}

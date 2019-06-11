@@ -70,3 +70,7 @@ package-lock.json
 
 # config
 *.env
+
+package.zip
+
+.vscode/

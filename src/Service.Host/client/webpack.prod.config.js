@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -66,8 +66,8 @@ module.exports = {
     devtool: 'source-map',
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].css"
+            filename: '[name].css',
+            chunkFilename: '[id].css'
         }),
         new UglifyJSPlugin({
             sourceMap: true

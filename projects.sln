@@ -19,7 +19,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "src\Service\Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ioc", "src\Ioc\Ioc.csproj", "{F5D09756-E2B9-4923-89E5-6577F307607A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit.Tests", "tests\Unit.Tests\Unit.Tests.csproj", "{C2D0D2B2-95CF-47F3-84A4-68B4424C00DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unit.Tests", "tests\Unit.Tests\Unit.Tests.csproj", "{C2D0D2B2-95CF-47F3-84A4-68B4424C00DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D4A8ADF0-51EA-408C-A96E-1149192D219B}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aws", "aws", "{1D7ED25D-DAF1-4947-A0EA-3D4EAC54F303}"
+	ProjectSection(SolutionItems) = preProject
+		deployment\aws\lambda.yaml = deployment\aws\lambda.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakeCommon", "FakeCommon", "{CB007F97-C37D-47DB-BD4A-C9B50280767E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linn.Common.Facade.Carter", "common\Linn.Common.Facade.Carter\Linn.Common.Facade.Carter.csproj", "{ACC35E60-2C54-476F-A296-5A5F15687323}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linn.Common.Facade.Carter.Tests", "common\Linn.Common.Facade.Carter.Tests\Linn.Common.Facade.Carter.Tests.csproj", "{069A31E9-0228-47F5-87D8-8E4D50ECEEBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +75,14 @@ Global
 		{C2D0D2B2-95CF-47F3-84A4-68B4424C00DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2D0D2B2-95CF-47F3-84A4-68B4424C00DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2D0D2B2-95CF-47F3-84A4-68B4424C00DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC35E60-2C54-476F-A296-5A5F15687323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC35E60-2C54-476F-A296-5A5F15687323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC35E60-2C54-476F-A296-5A5F15687323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC35E60-2C54-476F-A296-5A5F15687323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{069A31E9-0228-47F5-87D8-8E4D50ECEEBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069A31E9-0228-47F5-87D8-8E4D50ECEEBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069A31E9-0228-47F5-87D8-8E4D50ECEEBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069A31E9-0228-47F5-87D8-8E4D50ECEEBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +90,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{151D3881-3EE2-48ED-9B05-4A71195C414F} = {1EB736AA-6E4C-40F3-81D4-F8BE9B8E2A05}
 		{C2D0D2B2-95CF-47F3-84A4-68B4424C00DF} = {1EB736AA-6E4C-40F3-81D4-F8BE9B8E2A05}
+		{1D7ED25D-DAF1-4947-A0EA-3D4EAC54F303} = {D4A8ADF0-51EA-408C-A96E-1149192D219B}
+		{ACC35E60-2C54-476F-A296-5A5F15687323} = {CB007F97-C37D-47DB-BD4A-C9B50280767E}
+		{069A31E9-0228-47F5-87D8-8E4D50ECEEBD} = {CB007F97-C37D-47DB-BD4A-C9B50280767E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B216D4E2-79EE-419D-94E5-B0A9C9A6CF1A}

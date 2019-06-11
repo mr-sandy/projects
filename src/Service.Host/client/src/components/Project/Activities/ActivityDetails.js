@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Button, ListGroup, ListGroupItem, Badge, Glyphicon, Table } from 'react-bootstrap';
+import { Button, ListGroup, ListGroupItem, Badge, Table } from 'react-bootstrap';
 import { getActivityDetails } from './utility';
 
 const styles = {

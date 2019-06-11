@@ -1,11 +1,14 @@
 namespace Linn.Common.Facade.Carter.Handlers
 {
+    using System;
     using Linn.Common.Facade.Carter.Serialisers;
 
-    public class JsonResultHandler<T, TR> : ResultHandler<T, TR> where TR : IResourceBuilder<T>
+    public class JsonResultHandler<T> : ResultHandler<T>
     {
-        public JsonResultHandler(TR resourceBuilder) : base(resourceBuilder, "application/json", new JsonSerialiser())
+        public JsonResultHandler() : base("application/json", new JsonSerialiser())
         {
         }
+
+        public override Func<T, string> GenerateLocation => r => string.Empty;
     }
 }

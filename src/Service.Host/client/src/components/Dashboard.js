@@ -1,8 +1,9 @@
 ﻿import React from 'react';
-import { Grid, Row, Col, Button, Glyphicon } from 'react-bootstrap';
+import { Grid, Row, Col, Button } from 'react-bootstrap';
 import { Chart, ChartDetail, ChartMessage } from './Chart';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Loading } from './common/Loading';
+import { ZoomIn, ZoomOut, Plus } from './common/svg';
 
 class Dashboard extends React.Component {
     render() {
@@ -19,10 +20,10 @@ class Dashboard extends React.Component {
                         <h1>Project Dashboard</h1>
                         <div>
                             <Button bsStyle="link" style={{ float: 'right', outline: 'none', padding: '6px' }} onClick={() => zoomIn()}>
-                                <Glyphicon glyph="zoom-in" />
+                                <ZoomIn />
                             </Button>
                             <Button bsStyle="link" style={{ float: 'right', outline: 'none', padding: '6px' }} onClick={() => zoomOut()}>
-                                <Glyphicon glyph="zoom-out" />
+                                <ZoomOut />
                             </Button>
                         </div>
                         <Chart months={chartData.months} onPrev={() => viewEarlierDashboard()} onNext={() => viewLaterDashboard()}>
@@ -32,7 +33,7 @@ class Dashboard extends React.Component {
                             }
                         </Chart>
                         {canEdit && <LinkContainer style={{ marginTop: '40px' }} to={'/projects/new'}>
-                            <Button bsStyle="success" className="muted"><Glyphicon glyph="plus" />{'  Add Project'}</Button>
+                            <Button bsStyle="success" className="muted"><Plus />{'  Add Project'}</Button>
                         </LinkContainer >}
                     </Col>
                 </Row>

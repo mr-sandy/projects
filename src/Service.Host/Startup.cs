@@ -50,8 +50,8 @@
                 RequestPath = "/projects/build",
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "client", "build"))
             });
-            
-            app.UseAuthentication();
+
+            //app.UseAuthentication();
 
             app.UseBearerTokenAuthentication();
 

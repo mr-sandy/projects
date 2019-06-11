@@ -1,11 +1,12 @@
-﻿namespace Linn.Common.Facade.Carter.Handlers
+﻿using System;
+
+namespace Linn.Common.Facade.Carter.Handlers
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Linn.Common.Facade;
+    using Linn.Common.Facade.Carter.Serialisers;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.Primitives;
 
     public delegate Task ResponseAction(HttpResponse res, CancellationToken cancellationToken);
 
@@ -13,30 +14,34 @@
     {
         private readonly string contentType;
         private readonly ISerialiser serialiser;
-        private readonly IResourceBuilder<T> resourceBuilder;
+        private readonly Func<T, string> locationBuilder;
 
-        public ResultVisitor(string contentType, ISerialiser serialiser, IResourceBuilder<T> resourceBuilder)
+        public ResultVisitor(string contentType, ISerialiser serialiser, Func<T, string> locationBuilder = null)
         {
             this.contentType = contentType;
             this.serialiser = serialiser;
-            this.resourceBuilder = resourceBuilder;
+            this.locationBuilder = locationBuilder;
         }
 
         public ResponseAction Visit(SuccessResult<T> result)
         {
-            var resource = this.resourceBuilder.Build(result.Data);
-
             return async (res, cancellationToken) =>
             {
                 res.StatusCode = 200;
                 res.ContentType = this.contentType;
-                await res.WriteAsync(this.serialiser.Serialise(resource), cancellationToken);
+                await res.WriteAsync(this.serialiser.Serialise(result.Data), cancellationToken);
             };
         }
 
         public ResponseAction Visit(UnauthorisedResult<T> result)
         {
-            throw new NotImplementedException();
+            return (res, cancellationToken) =>
+            {
+                res.StatusCode = 401;
+                res.ContentType = this.contentType;
+
+                return Task.CompletedTask;
+            };
         }
 
         public ResponseAction Visit(NotFoundResult<T> result)
@@ -52,26 +57,39 @@
 
         public ResponseAction Visit(CreatedResult<T> result)
         {
-            var resource = this.resourceBuilder.Build(result.Data);
-            var location = this.resourceBuilder.GetLocation(result.Data);
+            var location = this.locationBuilder == null
+                ? null
+                : this.locationBuilder(result.Data);
 
             return async (res, cancellationToken) =>
             {
-                res.Headers["Location"] = "/projects/1";
+                res.Headers["Location"] = location;
                 res.StatusCode = 201;
                 res.ContentType = this.contentType;
-                await res.WriteAsync(this.serialiser.Serialise(resource), cancellationToken);
+                await res.WriteAsync(this.serialiser.Serialise(result.Data), cancellationToken);
             };
         }
 
         public ResponseAction Visit(BadRequestResult<T> result)
         {
-            throw new NotImplementedException();
+            return (res, cancellationToken) =>
+            {
+                res.StatusCode = 400;
+                res.ContentType = this.contentType;
+
+                return Task.CompletedTask;
+            };
         }
 
         public ResponseAction Visit(ServerFailureResult<T> result)
         {
-            throw new NotImplementedException();
+            return (res, cancellationToken) =>
+            {
+                res.StatusCode = 500;
+                res.ContentType = this.contentType;
+
+                return Task.CompletedTask;
+            };
         }
     }
 }

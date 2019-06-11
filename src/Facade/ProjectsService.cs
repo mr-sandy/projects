@@ -1,4 +1,6 @@
-﻿namespace Linn.Projects.Facade
+﻿using Linn.Projects.Facade.Resources.Activities;
+
+namespace Linn.Projects.Facade
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -20,25 +22,25 @@
             this.projectRepository = projectRepository;
         }
 
-        public IResult<Project> GetProject(int projectId)
+        public IResult<ProjectResource> GetProject(int projectId)
         {
             var project = this.projectRepository.Get(projectId);
 
             if (project == null)
             {
-                return new NotFoundResult<Project>();
+                return new NotFoundResult<ProjectResource>();
             }
 
-            return new SuccessResult<Project>(project);
+            return new SuccessResult<ProjectResource>(project.ToResource());
         }
 
-        public IResult<Project> UpdateProject(int projectId, ProjectResource resource, string employeeUrl)
+        public IResult<ProjectResource> UpdateProject(int projectId, ProjectResource resource, string employeeUrl)
         {
             var project = this.projectRepository.Get(projectId);
 
             if (project == null)
             {
-                return new NotFoundResult<Project>();
+                return new NotFoundResult<ProjectResource>();
             }
 
             var activity = resource.ToUpdateActivity(employeeUrl);
@@ -47,45 +49,45 @@
 
             this.transactionManager.Commit();
 
-            return new SuccessResult<Project>(project);
+            return new SuccessResult<ProjectResource>(project.ToResource());
         }
 
-        public IResult<Project> DeleteProject(int projectId)
+        public IResult<ProjectResource> DeleteProject(int projectId)
         {
             var project = this.projectRepository.Get(projectId);
 
             if (project == null)
             {
-                return new NotFoundResult<Project>();
+                return new NotFoundResult<ProjectResource>();
             }
 
             this.projectRepository.Remove(project);
 
             this.transactionManager.Commit();
 
-            return new SuccessResult<Project>(project);
+            return new SuccessResult<ProjectResource>(project.ToResource());
         }
 
-        public IResult<IEnumerable<Activity>> GetProjectActivities(int projectId)
+        public IResult<IEnumerable<ActivityResource>> GetProjectActivities(int projectId)
         {
             var project = this.projectRepository.Get(projectId);
 
             if (project == null)
             {
-                return new NotFoundResult<IEnumerable<Activity>>();
+                return new NotFoundResult<IEnumerable<ActivityResource>>();
             }
 
-            return new SuccessResult<IEnumerable<Activity>>(project.Activities);
+            return new SuccessResult<IEnumerable<ActivityResource>>(project.Activities.ToResource());
         }
 
-        public IResult<IEnumerable<Project>> GetProjects()
+        public IResult<IEnumerable<ProjectResource>> GetProjects()
         {
             var projects = this.projectRepository.GetAll().ToArray();
 
-            return new SuccessResult<IEnumerable<Project>>(projects);
+            return new SuccessResult<IEnumerable<ProjectResource>>(projects.ToResource());
         }
 
-        public IResult<Project> AddProject(ProjectResource resource, int? phases, string employeeUrl)
+        public IResult<ProjectResource> AddProject(ProjectResource resource, int? phases, string employeeUrl)
         {
             var activity = resource.ToCreateActivity(phases, employeeUrl);
 
@@ -95,16 +97,16 @@
 
             this.transactionManager.Commit();
 
-            return new CreatedResult<Project>(project);
+            return new CreatedResult<ProjectResource>(project.ToResource());
         }
 
-        public IResult<Phase> AddPhase(int projectId, PhaseResource resource, string employeeUrl)
+        public IResult<PhaseResource> AddPhase(int projectId, PhaseResource resource, string employeeUrl)
         {
             var project = this.projectRepository.Get(projectId);
 
             if (project == null)
             {
-                return new NotFoundResult<Phase>();
+                return new NotFoundResult<PhaseResource>();
             }
 
             var activity = resource.ToAddPhaseActivity(employeeUrl);
@@ -113,16 +115,16 @@
 
             this.transactionManager.Commit();
 
-            return new CreatedResult<Phase>(phase);
+            return new CreatedResult<PhaseResource>(phase.ToResource());
         }
 
-        public IResult<Phase> UpdatePhase(int projectId, int phaseNumber, PhaseResource resource, string employeeUrl)
+        public IResult<PhaseResource> UpdatePhase(int projectId, int phaseNumber, PhaseResource resource, string employeeUrl)
         {
             var project = this.projectRepository.Get(projectId);
 
             if (project == null)
             {
-                return new NotFoundResult<Phase>();
+                return new NotFoundResult<PhaseResource>();
             }
 
             var activity = resource.ToUpdatePhaseActivity(employeeUrl, phaseNumber);
@@ -131,16 +133,16 @@
 
             this.transactionManager.Commit();
 
-            return new SuccessResult<Phase>(phase);
+            return new SuccessResult<PhaseResource>(phase.ToResource());
         }
 
-        public IResult<Phase> DeletePhase(int projectId, int phaseNumber, string employeeUrl)
+        public IResult<PhaseResource> DeletePhase(int projectId, int phaseNumber, string employeeUrl)
         {
             var project = this.projectRepository.Get(projectId);
 
             if (project == null)
             {
-                return new NotFoundResult<Phase>();
+                return new NotFoundResult<PhaseResource>();
             }
 
             var activity = new RemovePhaseActivity(employeeUrl, phaseNumber);
@@ -149,7 +151,7 @@
 
             this.transactionManager.Commit();
 
-            return new SuccessResult<Phase>(phase);
+            return new SuccessResult<PhaseResource>(phase.ToResource());
         }
     }
 }
